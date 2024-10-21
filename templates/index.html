@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Drama Tracker</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center">K-Drama Tracker</h1>
+
+        <!-- Form to add K-dramas -->
+        <form action="/" method="POST" class="mb-5">
+            <div class="form-group">
+                <label for="drama_name">Drama Name</label>
+                <input type="text" class="form-control" id="drama_name" name="drama_name" placeholder="Enter drama name" required>
+            </div>
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <input type="text" class="form-control" id="genre" name="genre" placeholder="Enter genre" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Drama</button>
+        </form>
+
+        <!-- Display the list of dramas -->
+        <h2 class="text-center">Saved Dramas</h2>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Drama Name</th>
+                    <th>Genre</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drama in dramas %}
+                <tr>
+                    <td>{{ drama[0] }}</td>
+                    <td>{{ drama[1] }}</td>
+                    <td>
+                        <a href="/edit/{{ loop.index0 }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="/delete/{{ loop.index0 }}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Button to download PDF -->
+        <a href="/download_pdf" class="btn btn-success btn-block">Download as PDF</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
